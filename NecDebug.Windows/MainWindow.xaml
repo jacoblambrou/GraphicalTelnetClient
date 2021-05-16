@@ -1,0 +1,78 @@
+﻿<Window x:Class="NecDebug.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NecDebug.Windows"
+        xmlns:telnetViewer="clr-namespace:NecDebug.Windows.TelnetViewer"
+        xmlns:connectionDetails="clr-namespace:NecDebug.Windows.ConnectionDetails"
+        xmlns:settings="clr-namespace:NecDebug.Windows.Settings"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="ConnectionClient"
+        Height="450"
+        Width="900">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type connectionDetails:ConnectionDetailsViewModel}">
+            <connectionDetails:ConnectionDetailsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type telnetViewer:TelnetViewerViewModel}">
+            <telnetViewer:TelnetViewerView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type settings:SettingsViewModel}">
+            <settings:SettingsView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid x:Name="ConnectionDetails"
+                  Grid.Row="0"
+                  Grid.ColumnSpan="1">
+                  <ContentControl Content="{Binding ConnectionDetailsViewModel}"/>
+            </Grid>
+
+            <TextBlock Text="Created by Jacob Lambrou"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       Margin="5" />
+
+            <Button Content="Settings"
+                    Command="{Binding SettingsCommand}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Padding="2"
+                    Margin="2" />
+        </Grid>
+
+        <Grid x:Name="MainContent"
+              Grid.Row="1">
+            <ContentControl Content="{Binding MainViewModel}"/>
+        </Grid>
+    </Grid>
+</Window>
