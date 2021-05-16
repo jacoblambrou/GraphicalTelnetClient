@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <AssemblyName>GraphicalTelnetClient.Windows</AssemblyName>
+    <RootNamespace>GraphicalTelnetClient.Windows</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

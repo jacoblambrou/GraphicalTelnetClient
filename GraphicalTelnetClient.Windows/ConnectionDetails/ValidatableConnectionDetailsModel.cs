@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NecDebug.Windows.ConnectionDetails
+namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
     public class ValidatableConnectionDetailsModel : ValidatableBindableBase
     {

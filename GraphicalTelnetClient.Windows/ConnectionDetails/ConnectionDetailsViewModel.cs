@@ -1,4 +1,4 @@
-﻿using NecDebug.Windows.TelnetViewer;
+﻿using GraphicalTelnetClient.Windows.TelnetViewer;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using NecDebug.Windows.Settings;
+using GraphicalTelnetClient.Windows.Settings;
 
-namespace NecDebug.Windows.ConnectionDetails
+namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
     public class ConnectionDetailsViewModel : BindableBase
     {

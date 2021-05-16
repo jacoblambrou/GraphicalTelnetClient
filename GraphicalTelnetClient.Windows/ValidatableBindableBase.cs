@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace NecDebug.Windows
+namespace GraphicalTelnetClient.Windows
 {
     public class ValidatableBindableBase : BindableBase, INotifyDataErrorInfo, INotifyPropertyChanged
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NecDebug.Windows.Settings
+namespace GraphicalTelnetClient.Windows.Settings
 {
     public class SettingsViewModel : BindableBase
     {
@@ -29,12 +29,21 @@ namespace NecDebug.Windows.Settings
                 DefaultFileName = ConfigurationManager.AppSettings["DefaultFileName"],
                 AutomaticallySaveToFile = bool.Parse(ConfigurationManager.AppSettings["AutomaticallySaveToFile"]),
             };
+
+            LastSaved = "Never.";
         }
 
         public SettingsModel DefaultSettings
         {
             get { return _defaultSettings; }
             set { SetProperty(ref _defaultSettings, value); }
+        }
+
+        private string _lastSaved;
+        public string LastSaved
+        {
+            get { return _lastSaved; }
+            set { SetProperty(ref _lastSaved, value); }
         }
 
         private void OnBrowseCommand()
@@ -56,6 +65,8 @@ namespace NecDebug.Windows.Settings
             
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+
+            LastSaved = DateTime.Now.ToString("dd/MM/yyyy, HH:mm:ss");
         }
     }
 }

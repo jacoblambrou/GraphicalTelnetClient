@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NecDebug.Windows.Settings
+namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
     /// <summary>
-    /// Interaction logic for SettingsView.xaml
+    /// Interaction logic for ConnectionDetailsView.xaml
     /// </summary>
-    public partial class SettingsView : UserControl
+    public partial class ConnectionDetailsView : UserControl
     {
-        public SettingsView()
+        public ConnectionDetailsView()
         {
             InitializeComponent();
         }

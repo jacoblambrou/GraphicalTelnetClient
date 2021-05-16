@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace NecDebug.Windows.Converters
+namespace GraphicalTelnetClient.Windows.Converters
 {
     public class NegatableBooleanToVisibilityConverter : IValueConverter
     {

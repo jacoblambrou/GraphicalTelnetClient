@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NecDebug.Windows.TelnetViewer
+namespace GraphicalTelnetClient.Windows.TelnetViewer
 {
     /// <summary>
     /// Interaction logic for TelnetViewerView.xaml

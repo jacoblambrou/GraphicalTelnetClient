@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NecDebug.Windows
+namespace GraphicalTelnetClient.Windows
 {
     public static class ValidationHelpers
     {

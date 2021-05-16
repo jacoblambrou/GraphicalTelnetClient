@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NecDebug.Windows
+namespace GraphicalTelnetClient.Windows
 {
     enum TelnetCommands
     {

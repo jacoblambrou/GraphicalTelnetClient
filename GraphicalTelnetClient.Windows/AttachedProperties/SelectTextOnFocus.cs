@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace NecDebug.Windows.AttachedProperties
+namespace GraphicalTelnetClient.Windows.AttachedProperties
 {
     public class SelectTextOnFocus : DependencyObject
     {

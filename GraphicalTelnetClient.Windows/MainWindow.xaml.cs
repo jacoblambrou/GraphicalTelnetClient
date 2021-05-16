@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NecDebug.Windows
+namespace GraphicalTelnetClient.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

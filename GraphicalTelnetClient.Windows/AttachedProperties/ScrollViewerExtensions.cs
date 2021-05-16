@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace NecDebug.Windows.AttachedProperties
+namespace GraphicalTelnetClient.Windows.AttachedProperties
 {
     public class ScrollViewerExtensions
     {
