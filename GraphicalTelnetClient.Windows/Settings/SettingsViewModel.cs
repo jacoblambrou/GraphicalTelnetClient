@@ -1,17 +1,19 @@
-﻿using Prism.Commands;
+﻿using GraphicalTelnetClient.Common;
+using GraphicalTelnetClient.Common.Xml;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace GraphicalTelnetClient.Windows.Settings
 {
     public class SettingsViewModel : BindableBase
     {
-        private SettingsModel _defaultSettings;
+        private UserSettingsModel userSettings;
+        private string filePath;
+        private XmlCreator xmlCreator;
+        private XmlReader xmlReader;
 
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand BrowseCommand { get; private set; }
@@ -21,19 +23,36 @@ namespace GraphicalTelnetClient.Windows.Settings
             SaveCommand = new DelegateCommand(OnSaveCommand);
             BrowseCommand = new DelegateCommand(OnBrowseCommand);
 
-            DefaultSettings = new SettingsModel
+            userSettings = new UserSettingsModel();
+            xmlCreator = new XmlCreator();
+
+            filePath = Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["UserSettingsFilePath"]);
+            int directoryIndex = filePath.LastIndexOf(@"\");
+
+            if (!File.Exists(filePath))
             {
-                DefaultServerAddress = ConfigurationManager.AppSettings["DefaultServerAddress"],
-                DefaultServerPort = int.Parse(ConfigurationManager.AppSettings["DefaultServerPort"]),
-                DefaultOutputDirectory = Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["DefaultOutputDirectory"]),
-                DefaultFileName = ConfigurationManager.AppSettings["DefaultFileName"],
-                AutomaticallySaveToFile = bool.Parse(ConfigurationManager.AppSettings["AutomaticallySaveToFile"]),
+                Directory.CreateDirectory(filePath.Substring(0, directoryIndex));
+                xmlCreator.CreateDefaultUserSettingsXmlFile(filePath);
+            }
+
+            xmlReader = new XmlReader();
+
+            xmlReader.ObtainUserDetailsFromXmlFile(filePath, userSettings);
+
+            DefaultSettings = new SettingsBindableModel
+            {
+                DefaultServerAddress = userSettings.DefaultServerAddress,
+                DefaultServerPort = userSettings.DefaultServerPort,
+                DefaultOutputDirectory = userSettings.DefaultOutputDirectory,
+                DefaultFileName = userSettings.DefaultFileName,
+                AutomaticallySaveToFile = userSettings.AutomaticallySaveToFile,
             };
 
             LastSaved = "Never.";
         }
 
-        public SettingsModel DefaultSettings
+        private SettingsBindableModel _defaultSettings;
+        public SettingsBindableModel DefaultSettings
         {
             get { return _defaultSettings; }
             set { SetProperty(ref _defaultSettings, value); }
@@ -56,15 +75,13 @@ namespace GraphicalTelnetClient.Windows.Settings
 
         private void OnSaveCommand()
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["DefaultServerAddress"].Value = DefaultSettings.DefaultServerAddress;
-            config.AppSettings.Settings["DefaultServerPort"].Value = DefaultSettings.DefaultServerPort.ToString();
-            config.AppSettings.Settings["DefaultOutputDirectory"].Value = DefaultSettings.DefaultOutputDirectory;
-            config.AppSettings.Settings["DefaultFileName"].Value = DefaultSettings.DefaultFileName;
-            config.AppSettings.Settings["AutomaticallySaveToFile"].Value = DefaultSettings.AutomaticallySaveToFile.ToString();
-            
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
+            userSettings.DefaultServerAddress = DefaultSettings.DefaultServerAddress;
+            userSettings.DefaultServerPort = DefaultSettings.DefaultServerPort;
+            userSettings.DefaultOutputDirectory = DefaultSettings.DefaultOutputDirectory;
+            userSettings.DefaultFileName = DefaultSettings.DefaultFileName;
+            userSettings.AutomaticallySaveToFile = DefaultSettings.AutomaticallySaveToFile;
+
+            xmlCreator.UpdateUserSettingsXmlFile(filePath, userSettings);
 
             LastSaved = DateTime.Now.ToString("dd/MM/yyyy, HH:mm:ss");
         }

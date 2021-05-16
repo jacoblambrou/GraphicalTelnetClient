@@ -1,13 +1,8 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphicalTelnetClient.Windows.Settings
 {
-    public class SettingsModel : BindableBase
+    public class SettingsBindableModel : BindableBase
     {
         private string _defaultServerAddress;
         public string DefaultServerAddress

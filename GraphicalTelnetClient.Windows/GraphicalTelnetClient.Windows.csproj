@@ -4,14 +4,28 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>GraphicalTelnetClient.Windows</AssemblyName>
+    <AssemblyName>GraphicalTelnetClient</AssemblyName>
     <RootNamespace>GraphicalTelnetClient.Windows</RootNamespace>
+    <StartupObject>GraphicalTelnetClient.Windows.App</StartupObject>
+    <ApplicationIcon>Telnet_Icon.ico</ApplicationIcon>
+    <PackageIcon>Telnet_Icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GraphicalTelnetClient.Common\GraphicalTelnetClient.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Users\Jacob.Lambrou\Downloads\Telnet_Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

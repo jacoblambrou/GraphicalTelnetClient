@@ -1,14 +1,10 @@
-﻿using GraphicalTelnetClient.Windows.TelnetViewer;
+﻿using GraphicalTelnetClient.Common;
+using GraphicalTelnetClient.Windows.Settings;
+using GraphicalTelnetClient.Windows.TelnetViewer;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using GraphicalTelnetClient.Windows.Settings;
 
 namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
@@ -22,7 +18,7 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
         public DelegateCommand ClearCommand { get; private set; }
         public DelegateCommand BrowseCommand { get; private set; }
 
-        public ConnectionDetailsViewModel(SettingsModel defaultSettings, TelnetViewerViewModel telnetViewerViewModel)
+        public ConnectionDetailsViewModel(SettingsBindableModel defaultSettings, TelnetViewerViewModel telnetViewerViewModel)
         {
             this.telnetViewerViewModel = telnetViewerViewModel;
 
@@ -30,7 +26,7 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
             ClearCommand = new DelegateCommand(OnClearCommand);
             BrowseCommand = new DelegateCommand(OnBrowseCommand);
 
-            
+
             telnetViewerViewModel.TelnetClient.ConnectionStatusChanged += DisconnectCommandRaiseCanExecuteChanged;
             telnetViewerViewModel.TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
 

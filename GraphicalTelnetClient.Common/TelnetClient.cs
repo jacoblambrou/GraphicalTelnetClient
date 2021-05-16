@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GraphicalTelnetClient.Windows
+namespace GraphicalTelnetClient.Common
 {
     enum TelnetCommands
     {
@@ -48,7 +46,7 @@ namespace GraphicalTelnetClient.Windows
                 StringBuilder sb = new();
 
                 readDataTask = Task.Run(() => ReadData(netStream, sb));
-            
+
                 await readDataTask;
             }
             catch (Exception ex)
@@ -83,13 +81,13 @@ namespace GraphicalTelnetClient.Windows
                 } while (netStream.DataAvailable);
 
                 responseData = sb.ToString();
-                
+
                 OnResponseReceived(responseData);
                 sb.Clear();
             };
         }
 
-        internal void Send(string input)
+        public void Send(string input)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes($"{input}{Environment.NewLine}");
             try

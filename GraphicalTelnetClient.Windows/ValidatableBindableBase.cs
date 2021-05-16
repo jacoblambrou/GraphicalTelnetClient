@@ -46,7 +46,7 @@ namespace GraphicalTelnetClient.Windows
             ValidationContext context = new ValidationContext(this);
             context.MemberName = propertyName;
             Validator.TryValidateProperty(value, context, results);
-            
+
             if (results.Any())
             {
                 _errors[propertyName] = results.Select(c => c.ErrorMessage).ToList();

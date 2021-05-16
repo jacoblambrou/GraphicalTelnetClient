@@ -15,7 +15,6 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
 
         private int _serverPort;
         [Display(Name = "Server port")]
-        //[Range(1, 65535, ErrorMessage = "Server port must be between 1 and 65535")]
         [CustomValidation(typeof(ValidationHelpers), "ServerPortOutOfRange")]
         public int ServerPort
         {

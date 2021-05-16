@@ -3,18 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicalTelnetClient.Windows", "GraphicalTelnetClient.Windows\GraphicalTelnetClient.Windows.csproj", "{BB51812D-08B3-4793-98D3-D8471A5B68BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicalTelnetClient.Windows", "GraphicalTelnetClient.Windows\GraphicalTelnetClient.Windows.csproj", "{BB51812D-08B3-4793-98D3-D8471A5B68BD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GraphicalTelnetClient.Setup", "GraphicalTelnetClient.Setup\GraphicalTelnetClient.Setup.vdproj", "{45103C20-CDBE-4FB6-98E9-B17100AE07D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicalTelnetClient.Common", "GraphicalTelnetClient.Common\GraphicalTelnetClient.Common.csproj", "{D295A648-8D80-488B-ABE6-53FB69BD99E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.All|Any CPU.Build.0 = Release|Any CPU
 		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB51812D-08B3-4793-98D3-D8471A5B68BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45103C20-CDBE-4FB6-98E9-B17100AE07D4}.All|Any CPU.ActiveCfg = Debug
+		{45103C20-CDBE-4FB6-98E9-B17100AE07D4}.Debug|Any CPU.ActiveCfg = Debug
+		{45103C20-CDBE-4FB6-98E9-B17100AE07D4}.Release|Any CPU.ActiveCfg = Release
+		{45103C20-CDBE-4FB6-98E9-B17100AE07D4}.Release|Any CPU.Build.0 = Release
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.All|Any CPU.ActiveCfg = Debug|Any CPU
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.All|Any CPU.Build.0 = Debug|Any CPU
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D295A648-8D80-488B-ABE6-53FB69BD99E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

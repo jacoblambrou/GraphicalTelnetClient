@@ -1,11 +1,7 @@
-﻿using GraphicalTelnetClient.Windows.Settings;
+﻿using GraphicalTelnetClient.Common;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphicalTelnetClient.Windows.TelnetViewer
 {
@@ -32,8 +28,6 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
 
             commandHistory = new List<string>();
         }
-
-        private bool echoOn;        //TODO: Identify whether echo is turned on at the server end. If it is, stop printing user input to output.
 
         private string _userInput;
         public string UserInput

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphicalTelnetClient.Windows
 {
@@ -15,7 +11,6 @@ namespace GraphicalTelnetClient.Windows
             int maxValue = 65535;
             try
             {
-                //int number = int.Parse(value);
                 int number = value;
 
                 if (!(number >= minValue) || !(number <= maxValue))
