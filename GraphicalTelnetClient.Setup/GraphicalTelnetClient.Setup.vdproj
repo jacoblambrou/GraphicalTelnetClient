@@ -21,13 +21,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
+        "MsmKey" = "8:_5358AAAA46AE47658FF23E5E2725E725"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_931718531B124093B386F952F360A47B"
+        "MsmKey" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -55,6 +55,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -123,10 +139,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8742B6AFBF1E444E99F2D4BA1CC534FF"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5358AAAA46AE47658FF23E5E2725E725"
             {
-            "SourcePath" = "8:C:\\Users\\Jacob.Lambrou\\Downloads\\Telnet_Icon.ico"
-            "TargetName" = "8:Telnet_Icon.ico"
+            "SourcePath" = "8:..\\GraphicalTelnetClient.Windows\\bin\\Release\\net5.0-windows\\GraphicalTelnetClient.exe"
+            "TargetName" = "8:GraphicalTelnetClient.exe"
             "Tag" = "8:"
             "Folder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
             "Condition" = "8:"
@@ -143,10 +159,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_931718531B124093B386F952F360A47B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8742B6AFBF1E444E99F2D4BA1CC534FF"
             {
-            "SourcePath" = "8:..\\GraphicalTelnetClient.Windows\\bin\\Release\\net5.0-windows\\GraphicalTelnetClient.exe"
-            "TargetName" = "8:GraphicalTelnetClient.exe"
+            "SourcePath" = "8:C:\\Users\\Jacob.Lambrou\\Downloads\\Telnet_Icon.ico"
+            "TargetName" = "8:Telnet_Icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
             "Condition" = "8:"
@@ -220,7 +236,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Graphical Telnet Client"
         "ProductCode" = "8:{86F62D96-006B-4745-A4B1-513C7F1F3B55}"
-        "PackageCode" = "8:{93E8B606-9D2C-4162-94F2-B048827A2822}"
+        "PackageCode" = "8:{B25E5DED-11D5-499B-A9C6-9F92386F5E8D}"
         "UpgradeCode" = "8:{A38960BA-7BB7-413D-A678-793230A29997}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -340,7 +356,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_97DA98D3E6B6450EB4CC3AEAE8F9EDAC"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_374805BB309D4E5794B615D05053E6BA"
             {
             "Name" = "8:Graphical Telnet Client"
             "Arguments" = "8:"
@@ -348,7 +364,21 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_931718531B124093B386F952F360A47B"
+            "Target" = "8:_5358AAAA46AE47658FF23E5E2725E725"
+            "Folder" = "8:_833C45BCB76F4B3A99D3C128AECBF08E"
+            "WorkingFolder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
+            "Icon" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_540C53310EAF4C31B772D0A3E7F33186"
+            {
+            "Name" = "8:Graphical Telnet Client"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_5358AAAA46AE47658FF23E5E2725E725"
             "Folder" = "8:_DA1534753F404BAFBE5A1BE06610F736"
             "WorkingFolder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
             "Icon" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"

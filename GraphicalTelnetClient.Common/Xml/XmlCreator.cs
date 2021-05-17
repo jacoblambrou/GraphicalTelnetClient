@@ -43,8 +43,8 @@ namespace GraphicalTelnetClient.Common.Xml
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("UserSettings");
                 xmlWriter.WriteStartElement("ServerConnection");
-                xmlWriter.WriteElementString("ServerAddress", userSettings.DefaultServerAddress);
-                xmlWriter.WriteElementString("ServerPort", userSettings.DefaultServerPort.ToString());
+                xmlWriter.WriteElementString("DefaultServerAddress", userSettings.DefaultServerAddress);
+                xmlWriter.WriteElementString("DefaultServerPort", userSettings.DefaultServerPort.ToString());
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteStartElement("OutputFile");
                 xmlWriter.WriteElementString("DefaultOutputDirectory", userSettings.DefaultOutputDirectory);

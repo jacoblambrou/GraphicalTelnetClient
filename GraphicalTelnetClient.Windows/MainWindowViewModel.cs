@@ -24,7 +24,7 @@ namespace GraphicalTelnetClient.Windows
 
             this.settingsViewModel = new SettingsViewModel();
             this.telnetViewerViewModel = new TelnetViewerViewModel();
-            this.connectionDetailsViewModel = new ConnectionDetailsViewModel(settingsViewModel.DefaultSettings, this.telnetViewerViewModel);
+            this.connectionDetailsViewModel = new ConnectionDetailsViewModel(this.settingsViewModel.DefaultSettings, this.telnetViewerViewModel);
         }
 
         private BindableBase _connectionDetailsViewModel;

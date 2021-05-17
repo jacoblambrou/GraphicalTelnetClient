@@ -1,6 +1,8 @@
 ﻿using GraphicalTelnetClient.Common;
+using GraphicalTelnetClient.Common.Xml;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 
 namespace GraphicalTelnetClient.Windows.TelnetViewer
@@ -11,10 +13,11 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
         public DelegateCommand<string> ScrollHistoryCommand { get; private set; }
         public DelegateCommand ClearUserInputCommand { get; private set; }
 
-        public TelnetClient TelnetClient;
         private List<string> commandHistory;
         private int historyCount;
         private int historyIndex;
+
+        public TelnetClient TelnetClient;
 
         public TelnetViewerViewModel()
         {
@@ -24,7 +27,6 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
 
             TelnetClient = new TelnetClient();
             TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
-
 
             commandHistory = new List<string>();
         }
