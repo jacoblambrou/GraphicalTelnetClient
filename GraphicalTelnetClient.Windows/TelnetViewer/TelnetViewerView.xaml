@@ -14,11 +14,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      attachedProperties:ScrollViewerExtensions.AlwaysScrollToEnd="True">
+        <ScrollViewer x:Name="OutputWindow"
+                      VerticalScrollBarVisibility="Auto"
+                      attachedProperties:ScrollViewerExtensions.AlwaysScrollToEnd="{Binding AlwaysScrollToEnd}">
             <TextBlock Text="{Binding Output}"
                        TextWrapping="Wrap"
-                       Padding="5,0,5,0" ScrollViewer.CanContentScroll="True"/>
+                       Padding="5,0,5,0"
+                       ScrollViewer.CanContentScroll="True" />
         </ScrollViewer>
 
         <Grid Grid.Row="1">

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GraphicalTelnetClient.Windows.ConnectionDetails"
+             xmlns:viewer="clr-namespace:GraphicalTelnetClient.Windows.TelnetViewer"
+             xmlns:main="clr-namespace:GraphicalTelnetClient.Windows"
              xmlns:attachedProperties="clr-namespace:GraphicalTelnetClient.Windows.AttachedProperties"
              xmlns:conv="clr-namespace:GraphicalTelnetClient.Windows.Converters"
              mc:Ignorable="d" 
@@ -29,6 +31,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -161,9 +164,16 @@
                   Grid.Row="1"
                   VerticalAlignment="Center"/>
 
+        <Button Content="Scroll to End"
+                Command="{Binding ScrollToEndCommand}"
+                Grid.Column="7"
+                Grid.Row="1"
+                Padding="5"
+                Margin="5"/>
+
         <Button Content="Clear Output"
                 Command="{Binding ClearCommand}"
-                Grid.Column="7"
+                Grid.Column="8"
                 Grid.Row="1"
                 Padding="5"
                 Margin="5"/>

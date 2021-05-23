@@ -5,7 +5,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.ComponentModel;
-using System.Threading;
 
 namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
@@ -19,15 +18,17 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
         public DelegateCommand DisconnectCommand { get; private set; }
         public DelegateCommand ClearCommand { get; private set; }
         public DelegateCommand BrowseCommand { get; private set; }
+        public DelegateCommand ScrollToEndCommand { get; private set; }
 
         public ConnectionDetailsViewModel(SettingsBindableModel defaultSettings, TelnetViewerViewModel telnetViewerViewModel, FileWriter fileWriter)
         {
             this.telnetViewerViewModel = telnetViewerViewModel;
             this.fileWriter = fileWriter;
-            
+
             ConnectDisconnectCommand = new DelegateCommand(OnConnectDisconnectCommand, CanConnectDisconnect);
             ClearCommand = new DelegateCommand(OnClearCommand);
             BrowseCommand = new DelegateCommand(OnBrowseCommand);
+            ScrollToEndCommand = new DelegateCommand(OnScrollToEndCommand);
 
             telnetViewerViewModel.TelnetClient.ConnectionStatusChanged += DisconnectCommandRaiseCanExecuteChanged;
             telnetViewerViewModel.TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
@@ -124,6 +125,9 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
             if ((bool)dialog.ShowDialog())
                 OutputDirectory = dialog.SelectedPath;
         }
+
+        private void OnScrollToEndCommand() =>
+            telnetViewerViewModel.ScrollToEnd();
 
         private void SetDefaultConnectionDetails()
         {

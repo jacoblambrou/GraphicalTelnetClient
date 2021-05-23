@@ -1,8 +1,6 @@
 ﻿using GraphicalTelnetClient.Common;
-using GraphicalTelnetClient.Common.Xml;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.Generic;
 
 namespace GraphicalTelnetClient.Windows.TelnetViewer
@@ -33,6 +31,8 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
             TelnetClient = new TelnetClient();
             TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
 
+            AlwaysScrollToEnd = true;
+
             commandHistory = new List<string>();
         }
 
@@ -57,6 +57,12 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
             set { SetProperty(ref _focusUserInput, value); }
         }
 
+        private bool _alwaysScrollToEnd;
+        public bool AlwaysScrollToEnd
+        {
+            get { return _alwaysScrollToEnd; }
+            set { SetProperty(ref _alwaysScrollToEnd, value); }
+        }
 
         private void OnSendCommand()
         {
@@ -129,5 +135,11 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
 
         private void AppendToOutput(string update) =>
             Output += $"{update}";
+
+        public void ScrollToEnd()
+        {
+            AlwaysScrollToEnd = false;
+            AlwaysScrollToEnd = true;
+        }
     }
 }
