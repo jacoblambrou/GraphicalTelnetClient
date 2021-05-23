@@ -10,9 +10,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:conv="clr-namespace:GraphicalTelnetClient.Windows.Converters"
         mc:Ignorable="d"
-        Title="Graphical Telnet Client"
-        Height="450"
-        Width="900">
+        Title="Graphical Telnet Client" >
     
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

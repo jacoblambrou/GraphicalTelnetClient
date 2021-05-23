@@ -5,6 +5,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.ComponentModel;
+using System.Threading;
 
 namespace GraphicalTelnetClient.Windows.ConnectionDetails
 {
@@ -12,20 +13,21 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
     {
         private TelnetViewerViewModel telnetViewerViewModel;
         private string dateTime;
+        private FileWriter fileWriter;
 
         public DelegateCommand ConnectDisconnectCommand { get; private set; }
         public DelegateCommand DisconnectCommand { get; private set; }
         public DelegateCommand ClearCommand { get; private set; }
         public DelegateCommand BrowseCommand { get; private set; }
 
-        public ConnectionDetailsViewModel(SettingsBindableModel defaultSettings, TelnetViewerViewModel telnetViewerViewModel)
+        public ConnectionDetailsViewModel(SettingsBindableModel defaultSettings, TelnetViewerViewModel telnetViewerViewModel, FileWriter fileWriter)
         {
             this.telnetViewerViewModel = telnetViewerViewModel;
-
+            this.fileWriter = fileWriter;
+            
             ConnectDisconnectCommand = new DelegateCommand(OnConnectDisconnectCommand, CanConnectDisconnect);
             ClearCommand = new DelegateCommand(OnClearCommand);
             BrowseCommand = new DelegateCommand(OnBrowseCommand);
-
 
             telnetViewerViewModel.TelnetClient.ConnectionStatusChanged += DisconnectCommandRaiseCanExecuteChanged;
             telnetViewerViewModel.TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
@@ -95,6 +97,9 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
 
             if (!IsConnected)
             {
+                if (IsSavingToFile)
+                    fileWriter.SetOutputFile($"{OutputDirectory}\\{FileName}_{dateTime}.txt");
+
                 telnetViewerViewModel.Output += $"{Environment.NewLine}Connecting...";
 
                 await telnetViewerViewModel.TelnetClient.ConnectToServer(ConnectionDetails.ServerAddress, ConnectionDetails.ServerPort);
@@ -154,7 +159,7 @@ namespace GraphicalTelnetClient.Windows.ConnectionDetails
             if (string.IsNullOrWhiteSpace(OutputDirectory) || string.IsNullOrWhiteSpace(FileName))
                 return;
 
-            await FileWriter.WriteToFile($"{OutputDirectory}\\{FileName}_{dateTime}.txt", response);
+            await fileWriter.WriteToFile(response);
         }
     }
 }

@@ -121,6 +121,7 @@
         <TextBox Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}"
                  MinWidth="240"
                  MaxHeight="30"
+                 MaxWidth="500"
                  Grid.Column="1"
                  Grid.Row="1"
                  Padding="5"

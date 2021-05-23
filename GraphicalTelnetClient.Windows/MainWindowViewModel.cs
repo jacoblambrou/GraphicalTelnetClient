@@ -1,4 +1,5 @@
-﻿using GraphicalTelnetClient.Windows.ConnectionDetails;
+﻿using GraphicalTelnetClient.Common;
+using GraphicalTelnetClient.Windows.ConnectionDetails;
 using GraphicalTelnetClient.Windows.Settings;
 using GraphicalTelnetClient.Windows.TelnetViewer;
 using Prism.Commands;
@@ -11,6 +12,7 @@ namespace GraphicalTelnetClient.Windows
         private ConnectionDetailsViewModel connectionDetailsViewModel;
         private TelnetViewerViewModel telnetViewerViewModel;
         private SettingsViewModel settingsViewModel;
+        private FileWriter fileWriter;
 
         public DelegateCommand LoadedCommand { get; private set; }
         public DelegateCommand OpenSettingsCommand { get; private set; }
@@ -22,9 +24,11 @@ namespace GraphicalTelnetClient.Windows
             OpenSettingsCommand = new DelegateCommand(OnOpenSettingsCommand);
             ExitSettingsCommand = new DelegateCommand(OnExitSettingsCommand);
 
+            fileWriter = new FileWriter();
+
             this.settingsViewModel = new SettingsViewModel();
-            this.telnetViewerViewModel = new TelnetViewerViewModel();
-            this.connectionDetailsViewModel = new ConnectionDetailsViewModel(this.settingsViewModel.DefaultSettings, this.telnetViewerViewModel);
+            this.telnetViewerViewModel = new TelnetViewerViewModel(fileWriter);
+            this.connectionDetailsViewModel = new ConnectionDetailsViewModel(this.settingsViewModel.DefaultSettings, this.telnetViewerViewModel, fileWriter);
         }
 
         private BindableBase _connectionDetailsViewModel;

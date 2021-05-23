@@ -100,14 +100,10 @@ namespace GraphicalTelnetClient.Common
             }
         }
 
-        public void OnConnectionStatusChanged(bool IsConnected)
-        {
+        public void OnConnectionStatusChanged(bool IsConnected) =>
             ConnectionStatusChanged?.Invoke(this, IsConnected);
-        }
 
-        public void OnResponseReceived(string response)
-        {
+        public void OnResponseReceived(string response) =>
             ResponseReceived?.Invoke(response);
-        }
     }
 }

@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5358AAAA46AE47658FF23E5E2725E725"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -139,26 +133,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5358AAAA46AE47658FF23E5E2725E725"
-            {
-            "SourcePath" = "8:..\\GraphicalTelnetClient.Windows\\bin\\Release\\net5.0-windows\\GraphicalTelnetClient.exe"
-            "TargetName" = "8:GraphicalTelnetClient.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8742B6AFBF1E444E99F2D4BA1CC534FF"
             {
             "SourcePath" = "8:C:\\Users\\Jacob.Lambrou\\Downloads\\Telnet_Icon.ico"
@@ -356,7 +330,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_374805BB309D4E5794B615D05053E6BA"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_20C3C2AC880E4250B7D79A315BF29CDC"
             {
             "Name" = "8:Graphical Telnet Client"
             "Arguments" = "8:"
@@ -364,13 +338,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5358AAAA46AE47658FF23E5E2725E725"
-            "Folder" = "8:_833C45BCB76F4B3A99D3C128AECBF08E"
+            "Target" = "8:_9A59E04E6F924D059B6E9A61AF8A352A"
+            "Folder" = "8:_DA1534753F404BAFBE5A1BE06610F736"
             "WorkingFolder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
             "Icon" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_540C53310EAF4C31B772D0A3E7F33186"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BA22924C87BD44D4B9A353DAE8CB8487"
             {
             "Name" = "8:Graphical Telnet Client"
             "Arguments" = "8:"
@@ -378,8 +352,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5358AAAA46AE47658FF23E5E2725E725"
-            "Folder" = "8:_DA1534753F404BAFBE5A1BE06610F736"
+            "Target" = "8:_9A59E04E6F924D059B6E9A61AF8A352A"
+            "Folder" = "8:_833C45BCB76F4B3A99D3C128AECBF08E"
             "WorkingFolder" = "8:_AF138DFCFA2E4BB985C3847F4D8C4507"
             "Icon" = "8:_8742B6AFBF1E444E99F2D4BA1CC534FF"
             "Feature" = "8:"

@@ -13,17 +13,22 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
         public DelegateCommand<string> ScrollHistoryCommand { get; private set; }
         public DelegateCommand ClearUserInputCommand { get; private set; }
 
+        private FileWriter FileWriter;
+
         private List<string> commandHistory;
         private int historyCount;
         private int historyIndex;
 
         public TelnetClient TelnetClient;
 
-        public TelnetViewerViewModel()
+        public TelnetViewerViewModel(FileWriter fileWriter)
         {
             SendCommand = new DelegateCommand(OnSendCommand);
             ScrollHistoryCommand = new DelegateCommand<string>(OnScrollHistoryCommand);
             ClearUserInputCommand = new DelegateCommand(OnClearUserInputCommand);
+
+            FileWriter = fileWriter;
+            FileWriter.ExceptionOccurred += FileWriter_ExceptionOccurred;
 
             TelnetClient = new TelnetClient();
             TelnetClient.ResponseReceived += TelnetClient_ResponseReceived;
@@ -113,19 +118,16 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
             }
         }
 
-        public void ClearOutput()
-        {
+        public void ClearOutput() =>
             Output = string.Empty;
-        }
 
-        private void TelnetClient_ResponseReceived(string response)
-        {
+        private void FileWriter_ExceptionOccurred(string exMessage) =>
+            AppendToOutput(exMessage);
+
+        private void TelnetClient_ResponseReceived(string response) =>
             AppendToOutput(response);
-        }
 
-        private void AppendToOutput(string update)
-        {
+        private void AppendToOutput(string update) =>
             Output += $"{update}";
-        }
     }
 }

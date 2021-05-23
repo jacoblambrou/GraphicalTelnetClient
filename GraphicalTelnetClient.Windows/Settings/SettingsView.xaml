@@ -112,7 +112,6 @@
                    Margin="3"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center" />          
-            
             <TextBlock Text="{Binding LastSaved}"
                        Grid.Column="1"
                        Grid.Row="6"
