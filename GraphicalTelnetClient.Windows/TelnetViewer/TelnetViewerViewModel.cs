@@ -1,6 +1,7 @@
 ﻿using GraphicalTelnetClient.Common;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 
 namespace GraphicalTelnetClient.Windows.TelnetViewer
@@ -50,6 +51,27 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
             set { SetProperty(ref _output, value); }
         }
 
+        private int _selectionStart;
+        public int SelectionStart
+        {
+            get { return _selectionStart; }
+            set { SetProperty(ref _selectionStart, value); }
+        }
+
+        private int _selectionLength;
+        public int SelectionLength
+        {
+            get { return _selectionLength; }
+            set { SetProperty(ref _selectionLength, value); }
+        }
+
+        private bool _focusOutput;
+        public bool FocusOutput
+        {
+            get { return _focusOutput; }
+            set { SetProperty(ref _focusOutput, value); }
+        }
+
         private bool _focusUserInput;
         public bool FocusUserInput
         {
@@ -69,6 +91,12 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
             commandHistory.Add(UserInput);
             TelnetClient.Send(UserInput);
             UserInput = string.Empty;
+        }
+
+        public void SendQuickCommand(string command)
+        {
+            commandHistory.Add(command);
+            TelnetClient.Send(command);
         }
 
         private void OnScrollHistoryCommand(string direction)
@@ -126,6 +154,19 @@ namespace GraphicalTelnetClient.Windows.TelnetViewer
 
         public void ClearOutput() =>
             Output = string.Empty;
+
+        public void SearchOutput(string searchText)
+        {
+            SelectionStart = 0;
+            SelectionLength = 0;
+            
+            FocusOutput = false;
+            
+            SelectionStart = Output.IndexOf(searchText);
+            SelectionLength = searchText.Length;
+
+            FocusOutput = true;
+        }
 
         private void FileWriter_ExceptionOccurred(string exMessage) =>
             AppendToOutput(exMessage);

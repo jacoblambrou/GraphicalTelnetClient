@@ -14,13 +14,26 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding FocusOutput}" Value="True">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=Output}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
         <ScrollViewer x:Name="OutputWindow"
                       VerticalScrollBarVisibility="Auto"
                       attachedProperties:ScrollViewerExtensions.AlwaysScrollToEnd="{Binding AlwaysScrollToEnd}">
-            <TextBlock Text="{Binding Output}"
-                       TextWrapping="Wrap"
-                       Padding="5,0,5,0"
-                       ScrollViewer.CanContentScroll="True" />
+            <TextBox Text="{Binding Output, Mode=OneWay}"
+                     x:Name="Output"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     Padding="5,0,5,0"
+                     ScrollViewer.CanContentScroll="True"
+                     IsInactiveSelectionHighlightEnabled="True"/>
         </ScrollViewer>
 
         <Grid Grid.Row="1">

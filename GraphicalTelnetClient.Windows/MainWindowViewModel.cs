@@ -1,5 +1,6 @@
 ﻿using GraphicalTelnetClient.Common;
 using GraphicalTelnetClient.Windows.ConnectionDetails;
+using GraphicalTelnetClient.Windows.QuickCommands;
 using GraphicalTelnetClient.Windows.Settings;
 using GraphicalTelnetClient.Windows.TelnetViewer;
 using Prism.Commands;
@@ -12,6 +13,7 @@ namespace GraphicalTelnetClient.Windows
         private ConnectionDetailsViewModel connectionDetailsViewModel;
         private TelnetViewerViewModel telnetViewerViewModel;
         private SettingsViewModel settingsViewModel;
+        private QuickCommandsViewModel quickCommandsViewModel;
         private FileWriter fileWriter;
 
         public DelegateCommand LoadedCommand { get; private set; }
@@ -29,6 +31,7 @@ namespace GraphicalTelnetClient.Windows
             this.settingsViewModel = new SettingsViewModel();
             this.telnetViewerViewModel = new TelnetViewerViewModel(fileWriter);
             this.connectionDetailsViewModel = new ConnectionDetailsViewModel(this.settingsViewModel.DefaultSettings, this.telnetViewerViewModel, fileWriter);
+            this.quickCommandsViewModel = new QuickCommandsViewModel(this.settingsViewModel.DefaultSettings, this.telnetViewerViewModel);
         }
 
         private BindableBase _connectionDetailsViewModel;
@@ -45,6 +48,13 @@ namespace GraphicalTelnetClient.Windows
             set { SetProperty(ref _mainViewModel, value); }
         }
 
+        private BindableBase _quickCommandsViewModel;
+        public BindableBase QuickCommandsViewModel
+        {
+            get { return _quickCommandsViewModel; }
+            set { SetProperty(ref _quickCommandsViewModel, value); }
+        }
+
         private bool _settingsOpen;
         public bool SettingsOpen
         {
@@ -56,6 +66,7 @@ namespace GraphicalTelnetClient.Windows
         {
             this.ConnectionDetailsViewModel = connectionDetailsViewModel;
             this.MainViewModel = telnetViewerViewModel;
+            this.QuickCommandsViewModel = quickCommandsViewModel;
         }
 
         private void OnOpenSettingsCommand()

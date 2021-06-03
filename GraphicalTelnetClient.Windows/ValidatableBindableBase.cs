@@ -45,8 +45,25 @@ namespace GraphicalTelnetClient.Windows
             var results = new List<ValidationResult>();
             ValidationContext context = new ValidationContext(this);
             context.MemberName = propertyName;
-            Validator.TryValidateProperty(value, context, results);
 
+            try
+            {
+                Validator.TryValidateProperty(value, context, results);
+            }
+            catch (Exception ex)
+            {
+                Validator.TryValidateProperty(ex.Message, context, results);
+            }
+            finally
+            {
+                EnumerateErrors(propertyName, results);
+
+                ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+            }
+        }
+
+        private void EnumerateErrors(string propertyName, List<ValidationResult> results)
+        {
             if (results.Any())
             {
                 _errors[propertyName] = results.Select(c => c.ErrorMessage).ToList();
@@ -55,8 +72,6 @@ namespace GraphicalTelnetClient.Windows
             {
                 _errors.Remove(propertyName);
             }
-
-            ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
         }
     }
 }

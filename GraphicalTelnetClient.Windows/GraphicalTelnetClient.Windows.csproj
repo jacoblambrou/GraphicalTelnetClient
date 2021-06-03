@@ -9,7 +9,7 @@
     <StartupObject>GraphicalTelnetClient.Windows.App</StartupObject>
     <ApplicationIcon>Telnet_Icon.ico</ApplicationIcon>
     <PackageIcon>Telnet_Icon.png</PackageIcon>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

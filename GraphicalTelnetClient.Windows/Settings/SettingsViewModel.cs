@@ -46,6 +46,7 @@ namespace GraphicalTelnetClient.Windows.Settings
                 DefaultOutputDirectory = userSettings.DefaultOutputDirectory,
                 DefaultFileName = userSettings.DefaultFileName,
                 AutomaticallySaveToFile = userSettings.AutomaticallySaveToFile,
+                AutomaticallyExpandQuickCommands = userSettings.AutomaticallyExpandQuickCommands,
             };
 
             LastSaved = "Never.";
@@ -80,6 +81,7 @@ namespace GraphicalTelnetClient.Windows.Settings
             userSettings.DefaultOutputDirectory = DefaultSettings.DefaultOutputDirectory;
             userSettings.DefaultFileName = DefaultSettings.DefaultFileName;
             userSettings.AutomaticallySaveToFile = DefaultSettings.AutomaticallySaveToFile;
+            userSettings.AutomaticallyExpandQuickCommands = DefaultSettings.AutomaticallyExpandQuickCommands;
 
             xmlCreator.UpdateUserSettingsXmlFile(filePath, userSettings);
 

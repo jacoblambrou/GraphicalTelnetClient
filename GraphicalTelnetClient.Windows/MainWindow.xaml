@@ -7,6 +7,7 @@
         xmlns:telnetViewer="clr-namespace:GraphicalTelnetClient.Windows.TelnetViewer"
         xmlns:connectionDetails="clr-namespace:GraphicalTelnetClient.Windows.ConnectionDetails"
         xmlns:settings="clr-namespace:GraphicalTelnetClient.Windows.Settings"
+        xmlns:quickCommands="clr-namespace:GraphicalTelnetClient.Windows.QuickCommands"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:conv="clr-namespace:GraphicalTelnetClient.Windows.Converters"
         mc:Ignorable="d"
@@ -32,6 +33,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type settings:SettingsViewModel}">
             <settings:SettingsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type quickCommands:QuickCommandsViewModel}">
+            <quickCommands:QuickCommandsView/>
         </DataTemplate>
     </Window.Resources>
     
@@ -87,7 +91,23 @@
 
         <Grid x:Name="MainContent"
               Grid.Row="1">
-            <ContentControl Content="{Binding MainViewModel}"/>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Content="{Binding MainViewModel}"
+                            Grid.Column="0" />
+            
+            <Expander Name="QuickCommandsMenu"
+                      Grid.Column="1"
+                      HorizontalAlignment="Right"
+                      ExpandDirection="Left"
+                      IsExpanded="{Binding QuickCommandsViewModel.IsExpanded}" >
+                <ContentControl Content="{Binding QuickCommandsViewModel}"
+                                Width="350" />
+            </Expander>
         </Grid>
     </Grid>
 </Window>

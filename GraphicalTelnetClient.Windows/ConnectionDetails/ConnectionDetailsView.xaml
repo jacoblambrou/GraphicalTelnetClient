@@ -122,6 +122,7 @@
                HorizontalAlignment="Right"
                VerticalAlignment="Center"/>
         <TextBox Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}"
+                 attachedProperties:SelectTextOnFocus.Active="True"
                  MinWidth="240"
                  MaxHeight="30"
                  MaxWidth="500"
@@ -142,6 +143,7 @@
                HorizontalAlignment="Right"
                VerticalAlignment="Center"/>
         <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"
+                 attachedProperties:SelectTextOnFocus.Active="True"
                  MinWidth="120"
                  MaxHeight="30"
                  Grid.Column="4"

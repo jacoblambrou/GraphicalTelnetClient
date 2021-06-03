@@ -38,5 +38,13 @@ namespace GraphicalTelnetClient.Windows.Settings
             get { return _automaticallySaveToFile; }
             set { SetProperty(ref _automaticallySaveToFile, value); }
         }
+
+        private bool _automaticallyExpandQuickCommands;
+        public bool AutomaticallyExpandQuickCommands
+        {
+            get { return _automaticallyExpandQuickCommands; }
+            set { SetProperty(ref _automaticallyExpandQuickCommands, value); }
+        }
+
     }
 }

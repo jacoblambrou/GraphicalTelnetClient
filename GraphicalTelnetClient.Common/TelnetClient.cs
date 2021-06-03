@@ -92,7 +92,7 @@ namespace GraphicalTelnetClient.Common
             byte[] inputBytes = Encoding.UTF8.GetBytes($"{input}{Environment.NewLine}");
             try
             {
-                netStream.Write(inputBytes, 0, inputBytes.Length);
+                netStream?.Write(inputBytes, 0, inputBytes.Length);
             }
             catch (Exception ex)
             {

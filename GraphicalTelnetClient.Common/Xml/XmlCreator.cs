@@ -26,6 +26,9 @@ namespace GraphicalTelnetClient.Common.Xml
                 xmlWriter.WriteElementString("DefaultFileName", "TelnetOutput");
                 xmlWriter.WriteElementString("AutomaticallySaveToFile", "true");
                 xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("Layout");
+                xmlWriter.WriteElementString("AutomaticallyExpandQuickCommands", "true");
+                xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndDocument();
             }
@@ -45,6 +48,9 @@ namespace GraphicalTelnetClient.Common.Xml
                 xmlWriter.WriteElementString("DefaultOutputDirectory", userSettings.DefaultOutputDirectory);
                 xmlWriter.WriteElementString("DefaultFileName", userSettings.DefaultFileName);
                 xmlWriter.WriteElementString("AutomaticallySaveToFile", userSettings.AutomaticallySaveToFile.ToString());
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("Layout");
+                xmlWriter.WriteElementString("AutomaticallyExpandQuickCommands", userSettings.AutomaticallyExpandQuickCommands.ToString());
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndDocument();

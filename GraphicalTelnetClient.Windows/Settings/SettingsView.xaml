@@ -19,6 +19,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -97,10 +98,22 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"/>
 
+            <Label Content="Automatically Expand Quick Commands:"
+                   Grid.Column="0"
+                   Grid.Row="5"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center" />
+            <CheckBox IsChecked="{Binding DefaultSettings.AutomaticallyExpandQuickCommands}"
+                      Grid.Column="1"
+                      Grid.Row="5"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+
             <Button Content="Save"
                     Command="{Binding SaveCommand}"
                     Grid.Column="1"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Padding="5"
                     Margin="5"
                     MinWidth="40"
@@ -108,13 +121,13 @@
 
             <Label Content="Last Saved:"
                    Grid.Column="0"
-                   Grid.Row="6"
+                   Grid.Row="7"
                    Margin="3"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center" />          
             <TextBlock Text="{Binding LastSaved}"
                        Grid.Column="1"
-                       Grid.Row="6"
+                       Grid.Row="7"
                        Margin="5"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center" />
