@@ -29,7 +29,6 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
     {
         public DelegateCommand StationStatusCommand { get; private set; }
         public DelegateCommand TrunkStatusCommand { get; private set; }
-        public DelegateCommand SearchCommand { get; private set; }
 
         private TelnetViewerViewModel telnetViewerViewModel;
 
@@ -38,9 +37,8 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             SetStationHelpTooltip();
             SetTrunkHelpTooltip();
 
-            StationStatusCommand = new DelegateCommand(OnStationStatusCommand);
-            TrunkStatusCommand = new DelegateCommand(OnTrunkStatusCommand);
-            SearchCommand = new DelegateCommand(OnSearchCommand);
+            StationStatusCommand = new DelegateCommand(OnStationStatusCommand, CanSendStationStatusCommand);
+            TrunkStatusCommand = new DelegateCommand(OnTrunkStatusCommand, CanSendTrunkStatusCommand);
 
             this.telnetViewerViewModel = telnetViewerViewModel;
 
@@ -71,13 +69,6 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             set { SetProperty(ref _trunkStatusTooltip, value); }
         }
 
-        private string _searchText;
-        public string SearchText
-        {
-            get { return _searchText; }
-            set { SetProperty(ref _searchText, value); }
-        }
-
         private ValidatablePortStatus _stationPorts;
         public ValidatablePortStatus StationPorts
         {
@@ -94,17 +85,24 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
         private void OnStationStatusCommand()
         {
-            this.telnetViewerViewModel.SendQuickCommand($"status sta {StationPorts.StartPort.ToString("X")} {StationPorts.EndPort.ToString("X")}");
+            string stationStartHex = int.Parse(StationPorts.StartPort).ToString("X");
+            string stationEndHex = int.Parse(StationPorts.EndPort).ToString("X");
+            
+            stationStartHex = EnsureFourDigitHexString(stationStartHex);
+            stationEndHex= EnsureFourDigitHexString(stationEndHex);
+
+            this.telnetViewerViewModel.SendQuickCommand($"status sta {stationStartHex} {stationEndHex}");
         }
 
         private void OnTrunkStatusCommand()
         {
-            this.telnetViewerViewModel.SendQuickCommand($"status trk {TrunkPorts.StartPort.ToString("X")} {TrunkPorts.EndPort.ToString("X")}");
-        }
+            string trunkStartHex = int.Parse(TrunkPorts.StartPort).ToString("X");
+            string trunkEndHex = int.Parse(TrunkPorts.EndPort).ToString("X");
 
-        private void OnSearchCommand()
-        {
-            this.telnetViewerViewModel.SearchOutput(SearchText);
+            trunkStartHex = EnsureFourDigitHexString(trunkStartHex);
+            trunkEndHex = EnsureFourDigitHexString(trunkEndHex);
+
+            this.telnetViewerViewModel.SendQuickCommand($"status trk {trunkStartHex} {trunkEndHex}");
         }
 
         private void SetStationHelpTooltip()
@@ -142,8 +140,8 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             StationPorts.ErrorsChanged += StationRaiseCanExecuteChanged;
 
-            StationPorts.StartPort = 1;
-            StationPorts.EndPort = 1;
+            StationPorts.StartPort = "0001";
+            StationPorts.EndPort = "0001";
         }
 
         public void SetTrunkStatusTool()
@@ -155,8 +153,25 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             TrunkPorts.ErrorsChanged += TrunkRaiseCanExecuteChanged;
 
-            TrunkPorts.StartPort = 1;
-            TrunkPorts.EndPort = 1;
+            TrunkPorts.StartPort = "0001";
+            TrunkPorts.EndPort = "0001";
+        }
+
+        private bool CanSendStationStatusCommand()
+        {
+            return !StationPorts.HasErrors;
+        }
+
+        private bool CanSendTrunkStatusCommand()
+        {
+            return !TrunkPorts.HasErrors;
+        }
+
+        private string EnsureFourDigitHexString(string hexString)
+        {
+            while (hexString.Length < 4)
+                hexString = $"0{hexString}";
+            return hexString;
         }
 
         private void StationRaiseCanExecuteChanged(object sender, DataErrorsChangedEventArgs e) =>

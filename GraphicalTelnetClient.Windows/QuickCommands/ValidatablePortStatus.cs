@@ -9,17 +9,21 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 {
     public class ValidatablePortStatus : ValidatableBindableBase
     {
-        private int _startPort;
+        private string _startPort;
+        [Display(Name = "start port")]
+        [Required]
         [Range(1,65535, ErrorMessage = "Start port must be a number between 1 and 65535.")]
-        public int StartPort
+        public string StartPort
         {
             get { return _startPort; }
             set { SetProperty(ref _startPort, value); }
         }
 
-        private int _endPort;
+        private string _endPort;
+        [Display(Name = "end port")]
+        [Required]
         [Range(1, 65535, ErrorMessage = "End port must be a number between 1 and 65535.")]
-        public int EndPort
+        public string EndPort
         {
             get { return _endPort; }
             set { SetProperty(ref _endPort, value); }

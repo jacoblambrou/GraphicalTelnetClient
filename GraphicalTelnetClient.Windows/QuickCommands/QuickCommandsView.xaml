@@ -26,41 +26,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="Search"
-              Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Label Content="Search:"
-                   Grid.Column="0"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"/>
-            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                     attachedProperties:SelectTextOnFocus.Active="True"
-                     MinWidth="150"
-                     MaxHeight="30"
-                     Grid.Column="1"
-                     Grid.Row="0"
-                     Padding="5"
-                     Margin="0,0,5,0"
-                     VerticalContentAlignment="Center" />
-            <Button Content="Search"
-                    Command="{Binding SearchCommand}"
-                    Grid.Column="2"
-                    MaxWidth="60"
-                    MaxHeight="30"
-                    Padding="5,0,5,0" />
-        </Grid>
-
         <Grid x:Name="ExtStatus"
-              Grid.Row="1" >
+              Grid.Row="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -149,7 +118,7 @@
         </Grid>
 
         <Grid x:Name="TrunkStatus"
-              Grid.Row="2"
+              Grid.Row="1"
               Margin="0,20,0,0">
 
             <Grid.RowDefinitions>
