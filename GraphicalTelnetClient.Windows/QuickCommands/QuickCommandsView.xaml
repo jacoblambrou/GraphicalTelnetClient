@@ -26,6 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="ExtStatus"
@@ -205,6 +206,24 @@
                         Grid.Column="4"
                         MaxWidth="60"/>
             </Grid>
+        </Grid>
+
+        <Grid x:Name="SlotInfo"
+              Grid.Row="2"
+              Margin="0,20,0,0">
+            <TextBox Text="{Binding SlotNumber.SlotNumber, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         attachedProperties:SelectTextOnFocus.Active="True"
+                         Grid.Column="1"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         MinWidth="60"
+                         MaxWidth="60">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter"
+                                    Command="{Binding SlotInfoCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
     </Grid>
 </UserControl>

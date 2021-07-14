@@ -29,6 +29,9 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
     {
         public DelegateCommand StationStatusCommand { get; private set; }
         public DelegateCommand TrunkStatusCommand { get; private set; }
+        public DelegateCommand RebootCommand { get; private set; }
+        public DelegateCommand CheckUptimeCommand { get; private set; }
+        public DelegateCommand SlotInfoCommand { get; private set; }
 
         private TelnetViewerViewModel telnetViewerViewModel;
 
@@ -39,6 +42,9 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             StationStatusCommand = new DelegateCommand(OnStationStatusCommand, CanSendStationStatusCommand);
             TrunkStatusCommand = new DelegateCommand(OnTrunkStatusCommand, CanSendTrunkStatusCommand);
+            RebootCommand = new DelegateCommand(OnRebootCommand);
+            CheckUptimeCommand = new DelegateCommand(OnCheckUptimeCommand);
+            SlotInfoCommand = new DelegateCommand(OnSlotInfoCommand, CanSendSlotInfoCommand);
 
             this.telnetViewerViewModel = telnetViewerViewModel;
 
@@ -46,6 +52,7 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             SetStationStatusTool();
             SetTrunkStatusTool();
+            SetSlotInfoTool();
         }
 
         private bool _isExpanded;
@@ -83,55 +90,52 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             set { SetProperty(ref _trunkPorts, value); }
         }
 
-        private void OnStationStatusCommand()
+        private ValidatableSlotNumber _slotNumber;
+        public ValidatableSlotNumber SlotNumber
         {
-            string stationStartHex = int.Parse(StationPorts.StartPort).ToString("X");
-            string stationEndHex = int.Parse(StationPorts.EndPort).ToString("X");
-            
-            stationStartHex = EnsureFourDigitHexString(stationStartHex);
-            stationEndHex= EnsureFourDigitHexString(stationEndHex);
-
-            this.telnetViewerViewModel.SendQuickCommand($"status sta {stationStartHex} {stationEndHex}");
+            get { return _slotNumber; }
+            set { SetProperty(ref _slotNumber, value); }
         }
 
-        private void OnTrunkStatusCommand()
+
+        private void OnStationStatusCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand($"status sta {StationPorts.StartHexPort} {StationPorts.EndHexPort}");
+
+
+        private void OnTrunkStatusCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand($"status trk {TrunkPorts.StartHexPort} {TrunkPorts.EndHexPort}");
+
+        private void OnRebootCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand("reset");
+
+        private void OnCheckUptimeCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand("date");
+
+        private void OnSlotInfoCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand($"slot info {EnsureTwoDigitValue(SlotNumber.SlotNumber)}");
+
+        private void SetStationHelpTooltip() =>
+            StationStatusTooltip = SetHelpTooltip("StationTypes");
+
+        private void SetTrunkHelpTooltip() =>
+            TrunkStatusTooltip = SetHelpTooltip("TrunkTypes");
+
+        private DeviceInfo[] SetHelpTooltip(string type)
         {
-            string trunkStartHex = int.Parse(TrunkPorts.StartPort).ToString("X");
-            string trunkEndHex = int.Parse(TrunkPorts.EndPort).ToString("X");
+            var statusHelpVariables = Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings[type]).Split(',');
 
-            trunkStartHex = EnsureFourDigitHexString(trunkStartHex);
-            trunkEndHex = EnsureFourDigitHexString(trunkEndHex);
+            var deviceInfo = new DeviceInfo[statusHelpVariables.Length];
 
-            this.telnetViewerViewModel.SendQuickCommand($"status trk {trunkStartHex} {trunkEndHex}");
-        }
-
-        private void SetStationHelpTooltip()
-        {
-            var stationStatusHelpVariables = Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["StationTypes"]).Split(',');
-
-            StationStatusTooltip = new DeviceInfo[stationStatusHelpVariables.Length];
-
-            for (int i = 0; i < stationStatusHelpVariables.Length; i++)
+            for (int i = 0; i < statusHelpVariables.Length; i++)
             {
-                var stationStatus = stationStatusHelpVariables[i].Split('-');
-                StationStatusTooltip[i] = new(stationStatus[0], stationStatus[1]);
+                var helpVariable = statusHelpVariables[i].Split(':');
+                deviceInfo[i] = new(helpVariable[0], helpVariable[1]);
             }
+
+            return deviceInfo;
         }
 
-        private void SetTrunkHelpTooltip()
-        {
-            var trunkStatusHelpVariables = Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["TrunkTypes"]).Split(',');
-
-            TrunkStatusTooltip = new DeviceInfo[trunkStatusHelpVariables.Length];
-
-            for (int i = 0; i < trunkStatusHelpVariables.Length; i++)
-            {
-                var trunkStatus = trunkStatusHelpVariables[i].Split('-');
-                TrunkStatusTooltip[i] = new(trunkStatus[0], trunkStatus[1]);
-            }
-        }
-
-        public void SetStationStatusTool()
+        private void SetStationStatusTool()
         {
             if (StationPorts != null)
                 StationPorts.ErrorsChanged -= StationRaiseCanExecuteChanged;
@@ -142,9 +146,10 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             StationPorts.StartPort = "0001";
             StationPorts.EndPort = "0001";
+
         }
 
-        public void SetTrunkStatusTool()
+        private void SetTrunkStatusTool()
         {
             if (TrunkPorts != null)
                 TrunkPorts.ErrorsChanged -= TrunkRaiseCanExecuteChanged;
@@ -157,6 +162,16 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             TrunkPorts.EndPort = "0001";
         }
 
+        private void SetSlotInfoTool()
+        {
+            if (SlotNumber != null)
+                SlotNumber.ErrorsChanged -= SlotRaiseCanExcuteCHanged;
+
+            SlotNumber = new ValidatableSlotNumber();
+            SlotNumber.ErrorsChanged += SlotRaiseCanExcuteCHanged;
+            SlotNumber.SlotNumber = "01";
+        }
+
         private bool CanSendStationStatusCommand()
         {
             return !StationPorts.HasErrors;
@@ -167,11 +182,16 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             return !TrunkPorts.HasErrors;
         }
 
-        private string EnsureFourDigitHexString(string hexString)
+        private bool CanSendSlotInfoCommand()
         {
-            while (hexString.Length < 4)
-                hexString = $"0{hexString}";
-            return hexString;
+            return !SlotNumber.HasErrors;
+        }
+
+        private string EnsureTwoDigitValue(string value)
+        {
+            while (value.Length < 2)
+                value = $"0{value}";
+            return value;
         }
 
         private void StationRaiseCanExecuteChanged(object sender, DataErrorsChangedEventArgs e) =>
@@ -179,5 +199,8 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
         private void TrunkRaiseCanExecuteChanged(object sender, DataErrorsChangedEventArgs e) =>
             TrunkStatusCommand.RaiseCanExecuteChanged();
+
+        private void SlotRaiseCanExcuteCHanged(object sender, DataErrorsChangedEventArgs e) =>
+            SlotInfoCommand.RaiseCanExecuteChanged();
     }
 }
