@@ -3,12 +3,8 @@ using GraphicalTelnetClient.Windows.TelnetViewer;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphicalTelnetClient.Windows.QuickCommands
 {
@@ -23,15 +19,19 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
         public string Type { get; init; }
         public string Code { get; init; }
     };
-    
+
 
     public class QuickCommandsViewModel : BindableBase
     {
         public DelegateCommand StationStatusCommand { get; private set; }
         public DelegateCommand TrunkStatusCommand { get; private set; }
-        public DelegateCommand RebootCommand { get; private set; }
-        public DelegateCommand CheckUptimeCommand { get; private set; }
         public DelegateCommand SlotInfoCommand { get; private set; }
+        public DelegateCommand PingCommand { get; private set; }
+        public DelegateCommand CheckUptimeCommand { get; private set; }
+        public DelegateCommand RebootCommand { get; private set; }
+        public DelegateCommand ToggleVMtoEmailDebugCommand { get; private set; }
+        public DelegateCommand ToggleSIPRegistrationDebugCommand { get; private set; }
+
 
         private TelnetViewerViewModel telnetViewerViewModel;
 
@@ -42,9 +42,12 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
 
             StationStatusCommand = new DelegateCommand(OnStationStatusCommand, CanSendStationStatusCommand);
             TrunkStatusCommand = new DelegateCommand(OnTrunkStatusCommand, CanSendTrunkStatusCommand);
-            RebootCommand = new DelegateCommand(OnRebootCommand);
-            CheckUptimeCommand = new DelegateCommand(OnCheckUptimeCommand);
             SlotInfoCommand = new DelegateCommand(OnSlotInfoCommand, CanSendSlotInfoCommand);
+            PingCommand = new DelegateCommand(OnPingCommand, CanPingCommand);
+            CheckUptimeCommand = new DelegateCommand(OnCheckUptimeCommand);
+            RebootCommand = new DelegateCommand(OnRebootCommand);
+            ToggleVMtoEmailDebugCommand = new DelegateCommand(OnToggleVMtoEmailDebugCommand);
+            ToggleSIPRegistrationDebugCommand = new DelegateCommand(OnToggleSIPRegistrationDebugCommand);
 
             this.telnetViewerViewModel = telnetViewerViewModel;
 
@@ -53,6 +56,7 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             SetStationStatusTool();
             SetTrunkStatusTool();
             SetSlotInfoTool();
+            SetPingTool();
         }
 
         private bool _isExpanded;
@@ -97,6 +101,12 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
             set { SetProperty(ref _slotNumber, value); }
         }
 
+        private ValidatableIPAddress _ipAddress;
+        public ValidatableIPAddress IPAddress
+        {
+            get { return _ipAddress; }
+            set { SetProperty(ref _ipAddress, value); }
+        }
 
         private void OnStationStatusCommand() =>
             this.telnetViewerViewModel.SendQuickCommand($"status sta {StationPorts.StartHexPort} {StationPorts.EndHexPort}");
@@ -105,14 +115,28 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
         private void OnTrunkStatusCommand() =>
             this.telnetViewerViewModel.SendQuickCommand($"status trk {TrunkPorts.StartHexPort} {TrunkPorts.EndHexPort}");
 
-        private void OnRebootCommand() =>
-            this.telnetViewerViewModel.SendQuickCommand("reset");
+        private void OnSlotInfoCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand($"slot info {EnsureTwoDigitValue(SlotNumber.SlotNumber)}");
+
+        private void OnPingCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand($"ping {IPAddress.IPAddress}");
 
         private void OnCheckUptimeCommand() =>
             this.telnetViewerViewModel.SendQuickCommand("date");
 
-        private void OnSlotInfoCommand() =>
-            this.telnetViewerViewModel.SendQuickCommand($"slot info {EnsureTwoDigitValue(SlotNumber.SlotNumber)}");
+        private void OnRebootCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand("reset");
+
+        private void OnToggleVMtoEmailDebugCommand()
+        {
+            this.telnetViewerViewModel.SendQuickCommand("vmuaid 18");
+            this.telnetViewerViewModel.SendQuickCommand("vmuaid 18 1");
+            this.telnetViewerViewModel.SendQuickCommand("vmuaid 18 14");
+            this.telnetViewerViewModel.SendQuickCommand("vmuaid 18 18");
+        }
+
+        private void OnToggleSIPRegistrationDebugCommand() =>
+            this.telnetViewerViewModel.SendQuickCommand("voipccdebug 5 2");
 
         private void SetStationHelpTooltip() =>
             StationStatusTooltip = SetHelpTooltip("StationTypes");
@@ -165,27 +189,34 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
         private void SetSlotInfoTool()
         {
             if (SlotNumber != null)
-                SlotNumber.ErrorsChanged -= SlotRaiseCanExcuteCHanged;
+                SlotNumber.ErrorsChanged -= SlotRaiseCanExcuteChanged;
 
             SlotNumber = new ValidatableSlotNumber();
-            SlotNumber.ErrorsChanged += SlotRaiseCanExcuteCHanged;
+            SlotNumber.ErrorsChanged += SlotRaiseCanExcuteChanged;
             SlotNumber.SlotNumber = "01";
         }
 
-        private bool CanSendStationStatusCommand()
+        private void SetPingTool()
         {
-            return !StationPorts.HasErrors;
+            if (IPAddress != null)
+                IPAddress.ErrorsChanged -= PingRaiseCanExcuteChanged;
+
+            IPAddress = new ValidatableIPAddress();
+            IPAddress.ErrorsChanged += PingRaiseCanExcuteChanged;
+            IPAddress.IPAddress = "8.8.8.8";
         }
 
-        private bool CanSendTrunkStatusCommand()
-        {
-            return !TrunkPorts.HasErrors;
-        }
+        private bool CanSendStationStatusCommand() =>
+            !StationPorts.HasErrors;
 
-        private bool CanSendSlotInfoCommand()
-        {
-            return !SlotNumber.HasErrors;
-        }
+        private bool CanSendTrunkStatusCommand() =>
+            !TrunkPorts.HasErrors;
+
+        private bool CanSendSlotInfoCommand() =>
+            !SlotNumber.HasErrors;
+
+        private bool CanPingCommand() =>
+            !IPAddress.HasErrors;
 
         private string EnsureTwoDigitValue(string value)
         {
@@ -200,7 +231,10 @@ namespace GraphicalTelnetClient.Windows.QuickCommands
         private void TrunkRaiseCanExecuteChanged(object sender, DataErrorsChangedEventArgs e) =>
             TrunkStatusCommand.RaiseCanExecuteChanged();
 
-        private void SlotRaiseCanExcuteCHanged(object sender, DataErrorsChangedEventArgs e) =>
+        private void SlotRaiseCanExcuteChanged(object sender, DataErrorsChangedEventArgs e) =>
             SlotInfoCommand.RaiseCanExecuteChanged();
+
+        private void PingRaiseCanExcuteChanged(object sender, DataErrorsChangedEventArgs e) =>
+            PingCommand.RaiseCanExecuteChanged();
     }
 }

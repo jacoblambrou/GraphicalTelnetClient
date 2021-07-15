@@ -27,6 +27,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="ExtStatus"
@@ -69,10 +71,10 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -85,8 +87,7 @@
                          HorizontalAlignment="Left"
                          HorizontalContentAlignment="Center"
                          VerticalContentAlignment="Center"
-                         MinWidth="60"
-                         MaxWidth="60">
+                         Width="60">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter"
                                     Command="{Binding StationStatusCommand}" />
@@ -103,8 +104,7 @@
                          HorizontalAlignment="Left"
                          HorizontalContentAlignment="Center"
                          VerticalContentAlignment="Center"
-                         MinWidth="60"
-                         MaxWidth="60">
+                         Width="60">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter"
                                     Command="{Binding StationStatusCommand}" />
@@ -114,7 +114,7 @@
                 <Button Content="Send"
                         Command="{Binding StationStatusCommand}"
                         Grid.Column="4"
-                        MaxWidth="60"/>
+                        Width="60"/>
             </Grid>
         </Grid>
 
@@ -160,10 +160,10 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -176,8 +176,7 @@
                          HorizontalAlignment="Left"
                          HorizontalContentAlignment="Center"
                          VerticalContentAlignment="Center"
-                         MinWidth="60"
-                         MaxWidth="60">
+                         Width="60">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter"
                                     Command="{Binding TrunkStatusCommand}" />
@@ -193,8 +192,7 @@
                          HorizontalAlignment="Left"
                          HorizontalContentAlignment="Center"
                          VerticalContentAlignment="Center"
-                         MinWidth="60"
-                         MaxWidth="60">
+                         Width="60">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter"
                                     Command="{Binding TrunkStatusCommand}" />
@@ -204,26 +202,170 @@
                 <Button Content="Send"
                         Command="{Binding TrunkStatusCommand}"
                         Grid.Column="4"
-                        MaxWidth="60"/>
+                        Width="60"/>
             </Grid>
         </Grid>
 
         <Grid x:Name="SlotInfo"
               Grid.Row="2"
               Margin="0,20,0,0">
-            <TextBox Text="{Binding SlotNumber.SlotNumber, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" >
+
+                <Label Content="Slot Info:"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           FontWeight="Bold"
+                           FontSize="16" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Label Content="Slot Number:"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"/>
+                <TextBox Text="{Binding SlotNumber.SlotNumber, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          attachedProperties:SelectTextOnFocus.Active="True"
                          Grid.Column="1"
                          HorizontalAlignment="Left"
                          HorizontalContentAlignment="Center"
                          VerticalContentAlignment="Center"
-                         MinWidth="60"
-                         MaxWidth="60">
-                <TextBox.InputBindings>
-                    <KeyBinding Key="Enter"
+                         Width="60">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter"
                                     Command="{Binding SlotInfoCommand}" />
-                </TextBox.InputBindings>
-            </TextBox>
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <Button Content="Send"
+                        Command="{Binding SlotInfoCommand}"
+                        Grid.Column="2"
+                        Width="60"
+                        Margin="10,0,10,0"/>
+
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="Ping"
+              Grid.Row="3"
+              Margin="0,20,0,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" >
+
+                <Label Content="Ping:"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           FontWeight="Bold"
+                           FontSize="16" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Content="IP Address:"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"/>
+                <TextBox Text="{Binding IPAddress.IPAddress, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         attachedProperties:SelectTextOnFocus.Active="True"
+                         Grid.Column="1"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         Width="120">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter"
+                                    Command="{Binding PingCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <Button Content="Send"
+                        Command="{Binding PingCommand}"
+                        Grid.Column="2"
+                        Width="60"
+                        Margin="10,0,10,0"/>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="QuickButtons"
+              Grid.Row="4"
+              Margin="0,20,0,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" >
+
+                <Label Content="Quick Buttons:"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           FontWeight="Bold"
+                           FontSize="16" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Uptime"
+                        Command="{Binding CheckUptimeCommand}"
+                        Grid.Column="0"
+                        Width="60"
+                        Height="25"/>
+
+                <Button Content="Reboot"
+                        Command="{Binding RebootCommand}"
+                        Grid.Column="1"
+                        Width="60"
+                        Height="25"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Content="VM to Email Debugging"
+                        Command="{Binding ToggleVMtoEmailDebugCommand}"
+                        Grid.Column="0"                    
+                        Height="25"
+                        Margin="5"/>
+
+                <Button Content=" SIP Registration Debugging"
+                        Command="{Binding ToggleSIPRegistrationDebugCommand}"
+                        Grid.Column="1"                    
+                        Height="25"
+                        Margin="5"/>
+            </Grid>
+
         </Grid>
     </Grid>
 </UserControl>
